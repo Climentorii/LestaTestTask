@@ -11,8 +11,7 @@ class Rogue(Character):
         image = p.transform.scale(image, (192, 192))
         super().__init__(health=4, power=power, agility=agility, stamina=stamina, 
                          start_weapon=weapon, name="Rogue", image=image)
-        
-        #self.max_health += self.stamina
+
         self.health = self.max_health
         self.perks_list.append(HiddenAttack())
 
@@ -33,8 +32,7 @@ class Warrior(Character):
         image = p.transform.scale(image, (192, 192))
         super().__init__(health=5, power=power, agility=agility, stamina=stamina, 
                          start_weapon=weapon, name="Warrior", image=image)
-        
-        #self.max_health += self.stamina
+
         self.health = self.max_health
         self.perks_list.append(Rush())
 
@@ -55,8 +53,7 @@ class Barbarian(Character):
         image = p.transform.scale(image, (192, 192))
         super().__init__(health=6, power=power, agility=agility, stamina=stamina, 
                          start_weapon=weapon, name="Barbarian", image=image)
-        
-        #self.max_health += self.stamina
+
         self.health = self.max_health
         self.perks_list.append(Rage())
 

@@ -129,7 +129,7 @@ class GameEngine:
         if hasattr(self, methodName):
             method = getattr(self, methodName)
             method()
-        
+
         self.main_player.max_health += self.main_player.stamina
         self.main_player.health = self.main_player.max_health
 

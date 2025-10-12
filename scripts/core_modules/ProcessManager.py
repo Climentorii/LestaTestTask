@@ -136,9 +136,7 @@ class ProcessManager:
 
         # BEFORE_FIGHT rendering
         self.renderer.button_start_game.draw(screen)
-        print('button_start_game рисуется')
         self.renderer.button_back_to_select.draw(screen)
-        print('button_back_to_select рисуется')
         screen.blit(self.game_engine.main_player.image, (90, 180))
         screen.blit(self.renderer.scroll_for_stats, (400, 70))
         screen.blit(self.game_engine.main_player.weapon.image, (190, 250))
