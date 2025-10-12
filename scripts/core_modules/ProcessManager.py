@@ -67,11 +67,11 @@ class ProcessManager:
                 self.renderer.button_warrior_select.disable()
                 self.renderer.button_rogue_select.disable()
                 self.renderer.button_barbarian_select.disable()
-                player = Warrior(r.randint(1, 3), r.randint(1, 3), r.randint(1, 3))
-                player.max_health = player.startMaxHealth
-                player.health = player.max_health + player.stamina
-                self.game_engine.add_main_player(player)
-                self.game_engine.main_player.weapon = player.characterWeapon
+                self.game_engine.main_player = Warrior(r.randint(1, 3), r.randint(1, 3), r.randint(1, 3))
+                self.game_engine.main_player.max_health = self.game_engine.main_player.startMaxHealth + self.game_engine.main_player.stamina
+                self.game_engine.main_player.health = self.game_engine.main_player.max_health
+                self.game_engine.add_main_player(self.game_engine.main_player)
+                self.game_engine.main_player.weapon = self.game_engine.main_player.characterWeapon
                 self._current_state = BATTLE_STATES.BEFORE_FIGHT
                 self.renderer.button_back_to_select.enable()
                 self.renderer.button_start_game.enable()
@@ -80,11 +80,11 @@ class ProcessManager:
                 self.renderer.button_warrior_select.disable()
                 self.renderer.button_rogue_select.disable()
                 self.renderer.button_barbarian_select.disable()
-                player = Barbarian(r.randint(1, 3), r.randint(1, 3), r.randint(1, 3))
-                player.max_health = player.startMaxHealth
-                player.health = player.max_health + player.stamina
-                self.game_engine.add_main_player(player)
-                self.game_engine.main_player.weapon = player.characterWeapon
+                self.game_engine.main_player = Barbarian(r.randint(1, 3), r.randint(1, 3), r.randint(1, 3))
+                self.game_engine.main_player.max_health = self.game_engine.main_player.startMaxHealth + self.game_engine.main_player.stamina
+                self.game_engine.main_player.health = self.game_engine.main_player.max_health
+                self.game_engine.add_main_player(self.game_engine.main_player)
+                self.game_engine.main_player.weapon = self.game_engine.main_player.characterWeapon
                 self.renderer.button_back_to_select.enable()
                 self.renderer.button_start_game.enable()
                 self._current_state = BATTLE_STATES.BEFORE_FIGHT
@@ -93,11 +93,11 @@ class ProcessManager:
                 self.renderer.button_warrior_select.disable()
                 self.renderer.button_rogue_select.disable()
                 self.renderer.button_barbarian_select.disable()
-                player = Rogue(r.randint(1, 3), r.randint(1, 3), r.randint(1, 3))
-                player.max_health = player.startMaxHealth
-                player.health = player.max_health + player.stamina
-                self.game_engine.add_main_player(player)
-                self.game_engine.main_player.weapon = player.characterWeapon
+                self.game_engine.main_player = Rogue(r.randint(1, 3), r.randint(1, 3), r.randint(1, 3))
+                self.game_engine.main_player.max_health = self.game_engine.main_player.startMaxHealth + self.game_engine.main_player.stamina
+                self.game_engine.main_player.health = self.game_engine.main_player.max_health
+                self.game_engine.add_main_player(self.game_engine.main_player)
+                self.game_engine.main_player.weapon = self.game_engine.main_player.characterWeapon
                 self.renderer.button_back_to_select.enable()
                 self.renderer.button_start_game.enable()
                 self._current_state = BATTLE_STATES.BEFORE_FIGHT
@@ -134,7 +134,6 @@ class ProcessManager:
                 self.renderer.button_back_to_menu.enable()
                 self._current_state = BATTLE_STATES.FIGHT_COMPILATION
 
-        # BEFORE_FIGHT rendering
         self.renderer.button_start_game.draw(screen)
         self.renderer.button_back_to_select.draw(screen)
         screen.blit(self.game_engine.main_player.image, (90, 180))
@@ -146,14 +145,13 @@ class ProcessManager:
         self.renderer.draw_number_image(self.game_engine.main_player.health, 600, 263)
         self.renderer.draw_number_image(self.game_engine.main_player.weapon.damage, 560, 305)
 
-        # Tooltips in BEFORE_FIGHT
         mouse_pos = p.mouse.get_pos()
         hover_text = None
-        # Weapon
+
         if p.Rect(190, 250, 128, 128).collidepoint(mouse_pos):
             w = self.game_engine.main_player.weapon
             hover_text = f"Оружие: {w.name}\nУрон: {w.damage}\nТип атаки: {w.attack_type}"
-        # Stats
+
         if hover_text is None:
             if self.tooltip_manager.hit_rect_for_number(self.game_engine.main_player.power, 600, 130).collidepoint(mouse_pos):
                 hover_text = f"Сила: {self.game_engine.main_player.power}. \nВаш основной урон."
@@ -274,6 +272,7 @@ class ProcessManager:
                     self.renderer.button_take_prize_weapon.disable()
                     self.game_engine.main_player.max_health += self.game_engine.main_player.stamina
                     self.game_engine.main_player.health = self.game_engine.main_player.max_health
+                    print(f'Прибавил хп персонажу в в состоянии')
                 if self.renderer.button_warrior_select_to_upgrade.handle_event(event):
                     self.game_engine.level_up("warrior", self.game_engine.level_dict['Warrior'] + 1)
                     self._current_state = BATTLE_STATES.BEFORE_FIGHT
@@ -284,6 +283,7 @@ class ProcessManager:
                     self.renderer.button_take_prize_weapon.disable()
                     self.game_engine.main_player.max_health += self.game_engine.main_player.stamina
                     self.game_engine.main_player.health = self.game_engine.main_player.max_health
+                    print(f'Прибавил хп персонажу в в состоянии')
                 if self.renderer.button_rogue_select_to_upgrade.handle_event(event):
                     self.game_engine.level_up("rogue", self.game_engine.level_dict['Rogue'] + 1)
                     self._current_state = BATTLE_STATES.BEFORE_FIGHT
@@ -294,12 +294,12 @@ class ProcessManager:
                     self.renderer.button_take_prize_weapon.disable()
                     self.game_engine.main_player.max_health += self.game_engine.main_player.stamina
                     self.game_engine.main_player.health = self.game_engine.main_player.max_health
+                    print(f'Прибавил хп персонажу в в состоянии')
             screen.blit(self.renderer.win_scroll_prize, (130, 100))
             self.renderer.button_barbarian_select_to_upgrade.draw(screen)
             self.renderer.button_warrior_select_to_upgrade.draw(screen)
             self.renderer.button_rogue_select_to_upgrade.draw(screen)
 
-            # Tooltips for upgrade buttons
             mouse_pos = p.mouse.get_pos()
             hover_text = None
 

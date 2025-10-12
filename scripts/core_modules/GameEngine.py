@@ -130,8 +130,9 @@ class GameEngine:
             method = getattr(self, methodName)
             method()
 
-        self.main_player.max_health += self.main_player.stamina
-        self.main_player.health = self.main_player.max_health
+        '''self.main_player.max_health += self.main_player.stamina
+        print(f'Прибавил хп персонажу в функции level_up')
+        self.main_player.health = self.main_player.max_health'''
 
     def count_sum_level(self) -> int:
         return sum(self.level_dict.values())

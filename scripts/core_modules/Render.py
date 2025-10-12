@@ -163,24 +163,24 @@ class Renderer:
 
     def draw_battle_common(self, player: Character, enemy: Character,
                        scroll_enemy: Surface, scroll_player: Surface):
-    # Sprites
+
         self.screen.blit(player.image, config.PLAYER_IMAGE_POS)
         self.screen.blit(player.weapon.image, config.PLAYER_WEAPON_POS)
         self.screen.blit(enemy.image, config.ENEMY_IMAGE_POS)
         self.screen.blit(enemy.prizeWeapon.image, config.ENEMY_WEAPON_POS)
-        # Scrolls
+
         self.screen.blit(scroll_enemy, config.ENEMY_STATS_SCROLL_POS)
         self.screen.blit(scroll_player, config.PLAYER_STATS_SCROLL_POS)
-        # Perks
+
         self.draw_perks(player, 0, 100)
         self.draw_perks(enemy, 700, 100)
-        # Player number stats
+
         self.draw_number_image(player.power, *config.PLAYER_POWER_POS)
         self.draw_number_image(player.agility, *config.PLAYER_AGILITY_POS)
         self.draw_number_image(player.stamina, *config.PLAYER_STAMINA_POS)
         self.draw_number_image(player.health, *config.PLAYER_HEALTH_POS)
         self.draw_number_image(player.weapon.damage, *config.PLAYER_WEAPON_DMG_POS)
-        # Enemy number stats
+
         self.draw_number_image(enemy.power, *config.ENEMY_POWER_POS)
         self.draw_number_image(enemy.agility, *config.ENEMY_AGILITY_POS)
         self.draw_number_image(enemy.stamina, *config.ENEMY_STAMINA_POS)
